@@ -1,0 +1,18 @@
+<h3>Find By Active</h3>
+<div style="width: 300px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="lastname">Active</label>
+      <input type="text" class="form-control" id="active" required [(ngModel)]="active" name="active">
+    </div>
+
+    <div class="btn-group">
+      <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </form>
+</div>
+<ul>
+  <li *ngFor="let user of users">
+    <h4>{{user.id}} - {{user.name}} {{user.active}}</h4>
+  </li>
+</ul>
