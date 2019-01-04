@@ -37,7 +37,7 @@ public class UserController {
     
     @GetMapping("/users")
     public List<User> getAllUsers(){
-        System.out.println("Get all users...");
+        System.out.println("This is a change");
         return userRepository.findAll();
     }
     
