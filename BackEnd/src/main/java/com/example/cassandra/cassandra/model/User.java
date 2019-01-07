@@ -21,15 +21,17 @@ public class User {
     private String name;
     private String lastname;
     private boolean active;
+    private String category;
 
     public User() {
     }
 
-    public User(UUID id, String name, String lastname, boolean active) {
+    public User(UUID id, String name, String lastname, boolean active, String category) {
         this.id = id;
         this.name = name;
         this.active = active;
         this.lastname = lastname;
+        this.category = category;
     }
 
     public UUID getId() {
@@ -62,6 +64,14 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
     
     

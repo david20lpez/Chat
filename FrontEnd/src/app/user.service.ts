@@ -38,4 +38,10 @@ export class UserService {
   getUsersByLastname(lastname: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/lastname/${lastname}`);
   }
+
+  getUsersByCategory(category: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/category/${category}`);
+  }
+
+
 }

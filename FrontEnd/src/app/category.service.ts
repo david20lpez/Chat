@@ -34,4 +34,5 @@ export class CategoryService {
   getCategoriesByName(name: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/name/${name}`);
   }
+
 }

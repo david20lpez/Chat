@@ -1,4 +1,5 @@
 <h3>Create User</h3>
+
 <div [hidden]="submitted" style="width: 300px;">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -6,8 +7,12 @@
       <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
       <label for="name">Lastname</label>
       <input type="text" class="form-control" id="Lastname" required [(ngModel)]="user.lastname" name="lastname">
+      <label for="category">Category</label><br>
+      <select input type="text" class="form-control" id="category" required [(ngModel)]="user.category" name="category">
+        <option *ngFor="let category of categories | async" [(ngValue)]="category.name">{{category.name}}</option>
+      </select>
     </div>
-
+  
     <button type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>

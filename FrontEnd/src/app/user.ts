@@ -3,4 +3,5 @@ export class User {
     name: string;
     lastname: string;
     active: boolean;
+    category :string;
 }

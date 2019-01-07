@@ -81,4 +81,10 @@ public class UserController {
         return users;
     }
     
+    @GetMapping("users/category/{category}")
+    public List<User> findByActive(@PathVariable String category){
+        List<User> categories = userRepository.findByCategory(category);
+        return categories;
+    }
+   
 }

@@ -6,7 +6,6 @@
 package com.example.cassandra.cassandra.repository;
 
 import com.example.cassandra.cassandra.model.Category;
-import java.util.List;
 import java.util.UUID;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 
@@ -15,5 +14,4 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
  * @author LENOVO
  */
 public interface CategoryRepository extends CassandraRepository<Category, UUID>{
-    List<Category> findByName(String name);
 }

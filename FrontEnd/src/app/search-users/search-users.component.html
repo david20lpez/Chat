@@ -1,9 +1,11 @@
-<h3>Find By Active</h3>
+<h3>Find By Category</h3>
 <div style="width: 300px;">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="lastname">Active</label>
-      <input type="text" class="form-control" id="active" required [(ngModel)]="active" name="active">
+      <label for="category">Category</label>
+      <select type="text" class="form-control" id="category" required [(ngModel)]="category" name="category">
+        <option *ngFor="let category of categories | async" [(ngValue)]="category.name">{{category.name}}</option>
+      </select>
     </div>
 
     <div class="btn-group">
@@ -13,6 +15,6 @@
 </div>
 <ul>
   <li *ngFor="let user of users">
-    <h4>{{user.id}} - {{user.name}} {{user.active}}</h4>
+    <h4>{{user.name}} - {{user.lastname}} - {{user.active}}</h4>
   </li>
 </ul>
