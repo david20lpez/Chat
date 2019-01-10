@@ -1,0 +1,19 @@
+<div style="padding: 20px;">
+  <div align="center">
+  <form (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="name">Email</label>
+      <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+      <label for="name">Password</label>
+      <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+    </div>
+  
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+  </div>
+  </div>
+
+  <div *ngFor="let user of users | async">
+    {{user.name}}
+  </div>
+

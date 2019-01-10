@@ -5,8 +5,10 @@
     <div class="form-group">
       <label for="name">Name</label>
       <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
-      <label for="name">Lastname</label>
-      <input type="text" class="form-control" id="Lastname" required [(ngModel)]="user.lastname" name="lastname">
+      <label for="name">Email</label>
+      <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+      <label for="category">Password</label><br>
+      <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
       <label for="category">Category</label><br>
       <select input type="text" class="form-control" id="category" required [(ngModel)]="user.category" name="category">
         <option *ngFor="let category of categories | async" [(ngValue)]="category.name">{{category.name}}</option>

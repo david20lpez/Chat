@@ -20,7 +20,7 @@ export class UserDetailsComponent implements OnInit {
 
   updateActive(isActive: boolean) {
     this.userService.updateUser(this.user.id,
-      { name: this.user.name, lastname: this.user.lastname, active: isActive })
+      { name: this.user.name, lastname: this.user.email, active: isActive, password: this.user.password })
       .subscribe(
         data => {
           console.log(data);

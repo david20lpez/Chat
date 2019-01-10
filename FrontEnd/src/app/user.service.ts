@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,10 @@ export class UserService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
+  public validLogIn(user: User): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/login`, user);
+  }
+
   getUsersList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
@@ -43,5 +48,7 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/category/${category}`);
   }
 
-
+  getUsersByName(name: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/name/${name}`);
+  }
 }

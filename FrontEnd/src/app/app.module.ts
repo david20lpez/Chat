@@ -13,6 +13,8 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { SearchCategoriesComponent } from './search-categories/search-categories.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { SearchCategoriesComponent } from './search-categories/search-categories
     CreateCategoryComponent,
     CategoryDetailsComponent,
     CategoryListComponent,
-    SearchCategoriesComponent
+    SearchCategoriesComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ package com.example.cassandra.cassandra.repository;
 
 import com.example.cassandra.cassandra.model.User;
 import java.util.List;
+import java.util.Optional;
 
 import java.util.UUID;
 import org.springframework.data.cassandra.repository.CassandraRepository;
@@ -18,4 +19,6 @@ import org.springframework.data.cassandra.repository.CassandraRepository;
 public interface UserRepository extends CassandraRepository<User, UUID>{
     List<User> findByActive(boolean active);
     List<User> findByCategory(String category);
+    List<User> findByName(String username);
+    Optional<User> findByEmailAndPassword(String email, String password);
 }

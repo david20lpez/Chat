@@ -58,7 +58,7 @@ public class UserController {
         if(userData.isPresent()){
             User _user = userData.get();
             _user.setName(user.getName());
-            _user.setLastname(user.getLastname());
+            _user.setEmail(user.getEmail());
             _user.setActive(user.isActive());
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         }
@@ -86,5 +86,19 @@ public class UserController {
         List<User> categories = userRepository.findByCategory(category);
         return categories;
     }
+    
+    @GetMapping("users/isUser")
+    public List<User> isUser(@PathVariable String username){
+        System.out.println(username);
+        return userRepository.findByName(username);
+    }
    
+    @PostMapping("users/login")
+    public ResponseEntity logIn (@RequestBody User user){
+        Optional<User> u = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (u.isPresent()) {
+            return new ResponseEntity<>(u.get(), HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
 }
