@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
-import { Observable } from 'rxjs';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -17,14 +16,8 @@ export class LoginComponent {
   user: User;
   email : string
   password : string
-  users: Observable<User[]>;
 
   ngOnInit() {
-    this.reloadData();
-  }
-
-  reloadData(){
-    this.users = this.userService.getUsersList();
   }
 
   login() : void {

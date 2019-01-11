@@ -8,7 +8,6 @@ package com.example.cassandra.cassandra.controller;
 import com.datastax.driver.core.utils.UUIDs;
 import com.example.cassandra.cassandra.model.Category;
 import com.example.cassandra.cassandra.repository.CategoryRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

@@ -86,12 +86,6 @@ public class UserController {
         List<User> categories = userRepository.findByCategory(category);
         return categories;
     }
-    
-    @GetMapping("users/isUser")
-    public List<User> isUser(@PathVariable String username){
-        System.out.println(username);
-        return userRepository.findByName(username);
-    }
    
     @PostMapping("users/login")
     public ResponseEntity logIn (@RequestBody User user){

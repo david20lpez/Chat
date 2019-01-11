@@ -7,6 +7,39 @@
     <a routerLink="category/add" class="btn btn-primary active" role="button" routerLinkActive="active">Add Category</a>
     <a routerLink="category/findbyname" class="btn btn-primary active" role="button" routerLinkActive="active">Search Category</a>
   </nav>
+   
+  <body>
+    
+    <div class="container" >
+   
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="connect">Options:</label>
+          <button id="connect" class="btn btn-default" type="button" [disabled]="!disabled" (click)="connect()">Chat</button>
+          <button id="disconnect" class="btn btn-default" type="submit" [disabled]="disabled" (click)="disconnect()">End Chat</button>
+        </div>
+      </form>
+      <table id="conversation" class="table table-striped" style="margin-top: 20px;">
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let greeting of greetings">
+          <tr>
+            <td>{{greeting}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="form-inline" style="margin-top: 20px;">
+        <div class="form-group">
+          <label for="name">Message:</label>
+          <input type="text" id="name" name="name" class="form-control" [(ngModel)]="name" />
+        </div>
+        <button id="send" class="btn btn-default" type="button" (click)="sendName()">Send</button>
+      </form>
+   
 
-
-
+   
+    </div>
+  </body>
