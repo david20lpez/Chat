@@ -9,7 +9,9 @@
       <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
       <label for="category">Password</label><br>
       <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
-      <label for="category">Category</label><br>
+      <!-- <label for="category">Role</label><br>
+      <input type="text" class="form-control" id="role" required [(ngModel)]="user.role" name="role"> -->
+      <label for="role">Category</label><br>
       <select input type="text" class="form-control" id="category" required [(ngModel)]="user.category" name="category">
         <option *ngFor="let category of categories | async" [(ngValue)]="category.name">{{category.name}}</option>
       </select>

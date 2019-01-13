@@ -15,7 +15,7 @@ export class HomeComponent{
 
   title = 'Chat Application';
 
-  
+  personName = localStorage.getItem("name");
   greetings: string[] = [];
   disabled = true;
   name: string;

@@ -24,7 +24,12 @@ export class LoginComponent {
     this.userService.validLogIn(this.user).subscribe( res => {
       if (res != null) {
         localStorage.setItem("name", res.name);
-        this.router.navigate(["home"]);
+        if(res.role=="admin"){
+          this.router.navigate(["home"]);
+        }
+        else{
+          this.router.navigate(["home/user/user"]);
+        }
       }
     }, err => {
       alert('LogIn invalido');
