@@ -24,6 +24,7 @@ export class LoginComponent {
     this.userService.validLogIn(this.user).subscribe( res => {
       if (res != null) {
         localStorage.setItem("name", res.name);
+        this.userService.updateUser(res.id, {active: true});
         if(res.role=="admin"){
           this.router.navigate(["home"]);
         }
@@ -34,6 +35,17 @@ export class LoginComponent {
     }, err => {
       alert('LogIn invalido');
     });
+  }
+
+  updateActive(user: User) {
+    this.userService.updateUser(this.user.id,
+      { active: true })
+      .subscribe(
+        data => {
+          console.log(data);
+          this.user = data as User;
+        },
+        error => console.log(error));
   }
 
 }
