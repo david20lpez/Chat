@@ -20,9 +20,10 @@ export class LoginComponent {
   ngOnInit() {
   }
 
-  login() : void {
+  login(){
     this.userService.validLogIn(this.user).subscribe( res => {
       if (res != null) {
+        localStorage.setItem("name", res.name);
         this.router.navigate(["home"]);
       }
     }, err => {

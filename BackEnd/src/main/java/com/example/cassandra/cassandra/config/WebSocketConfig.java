@@ -21,13 +21,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer{
     @Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 		config.enableSimpleBroker("/topic");
-		config.setApplicationDestinationPrefixes("/gkz");
+		config.setApplicationDestinationPrefixes("/chat");
 	}
  
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry
-		.addEndpoint("/gkz-stomp-endpoint")
+		.addEndpoint("/chat-endpoint")
 		.setAllowedOrigins("http://localhost:4200")
 		.withSockJS();
 	}

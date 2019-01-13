@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +11,16 @@ import * as SockJS from 'sockjs-client';
 
 export class HomeComponent{
   
+  constructor(private router: Router) {}
 
   title = 'Chat Application';
 
+  
   greetings: string[] = [];
   disabled = true;
   name: string;
   private stompClient = null;
  
-  constructor() { }
  
   setConnected(connected: boolean) {
     this.disabled = !connected;
@@ -29,7 +31,7 @@ export class HomeComponent{
   }
  
   connect() {
-    const socket = new SockJS('http://localhost:8080/gkz-stomp-endpoint');
+    const socket = new SockJS('http://localhost:8080/chat-endpoint');
     this.stompClient = Stomp.over(socket);
  
     const _this = this;
@@ -54,14 +56,19 @@ export class HomeComponent{
  
   sendName() {
     this.stompClient.send(
-      '/gkz/hello',
+      '/chat/hello',
       {},
-      this.name
+      localStorage.getItem("name") + ': ' + this.name
     );
   }
  
   showGreeting(message) {
     this.greetings.push(message);
+  }
+
+  logOut(){
+    localStorage.setItem("name", null);
+    this.router.navigate([""]);
   }
 
 }
