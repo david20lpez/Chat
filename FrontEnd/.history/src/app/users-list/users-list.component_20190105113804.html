@@ -1,0 +1,12 @@
+<h1>Users</h1>
+ 
+<div *ngFor="let user of users | async" style="width: 300px;">
+  <user-details [user]='user'></user-details>
+</div>
+ 
+<h2>categories</h2>
+ 
+<div *ngFor="let category of categories | async" style="width: 300px;">
+  <category-details [category]='category'></category-details>
+</div>
+
