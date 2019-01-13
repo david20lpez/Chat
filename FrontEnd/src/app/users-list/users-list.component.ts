@@ -12,6 +12,7 @@ import { User } from '../user';
 export class UsersListComponent implements OnInit {
 
   users: Observable<User[]>;
+  
 
   constructor(private userService: UserService) { }
 
@@ -22,4 +23,5 @@ export class UsersListComponent implements OnInit {
   reloadData() {
     this.users = this.userService.getUsersList();
   }
+
 }
