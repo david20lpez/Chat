@@ -90,7 +90,7 @@ export class UsersListComponent implements OnInit {
     this.user.active = false;
     this.userService.createUser(this.user);
     console.log(this.user);
-    this.userService.logOut(this.user);
+    this.userService.logOut(this.user).subscribe();
   }
 
 
