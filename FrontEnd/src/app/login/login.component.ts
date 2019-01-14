@@ -29,7 +29,7 @@ export class LoginComponent {
           this.router.navigate(["home"]);
         }
         else{
-          this.router.navigate(["home/user/user"]);
+          this.router.navigate(["home/user/active_users"]);
         }
       }
     }, err => {

@@ -8,12 +8,14 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { SearchCategoriesComponent } from './search-categories/search-categories.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { ActiveUsersComponent } from './active-users/active-users.component';
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'home', component: HomeComponent},
     { path: 'home/user/user', component: UsersListComponent },
     { path: 'home/user/add', component: CreateUserComponent },
+    { path: 'home/user/active_users', component: ActiveUsersComponent },
     { path: 'home/user/findbyactive', component: SearchUsersComponent },
     { path: 'home/category/category', component: CategoryListComponent },
     { path: 'home/category/add', component: CreateCategoryComponent },

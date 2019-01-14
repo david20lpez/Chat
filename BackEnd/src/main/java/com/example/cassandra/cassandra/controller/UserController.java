@@ -77,12 +77,13 @@ public class UserController {
     
     @GetMapping("users/active/{active}")
     public List<User> findByActive(@PathVariable boolean active){
+        System.out.println("Listing active users");
         List<User> users = userRepository.findByActive(active);
         return users;
     }
     
     @GetMapping("users/category/{category}")
-    public List<User> findByActive(@PathVariable String category){
+    public List<User> findByCategory(@PathVariable String category){
         List<User> categories = userRepository.findByCategory(category);
         return categories;
     }
