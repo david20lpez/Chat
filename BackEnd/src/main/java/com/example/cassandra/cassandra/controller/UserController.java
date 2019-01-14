@@ -91,8 +91,24 @@ public class UserController {
     public ResponseEntity logIn (@RequestBody User user){
         Optional<User> u = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (u.isPresent()) {
+            u.get().setActive(true);
+            userRepository.save(u.get());
             return new ResponseEntity<>(u.get(), HttpStatus.ACCEPTED);
         }
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
+    
+    @PostMapping("users/logout")
+    public ResponseEntity logOut (@RequestBody User user){
+        UUID id = user.getId();
+        Optional<User> user1 = userRepository.findById(id);
+        if(user1.isPresent()){
+            
+            user1.get().setActive(false);
+            userRepository.save(user1.get());
+            return new ResponseEntity<>(user1.get(), HttpStatus.ACCEPTED);
+        }
+        System.out.println("being used");
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
 }
