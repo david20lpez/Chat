@@ -9,17 +9,18 @@ import { SearchCategoriesComponent } from './search-categories/search-categories
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
+import { LoginGuard } from './login.guard';
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
-    { path: 'home', component: HomeComponent},
-    { path: 'home/user/user', component: UsersListComponent },
-    { path: 'home/user/add', component: CreateUserComponent },
-    { path: 'home/user/active_users', component: ActiveUsersComponent },
-    { path: 'home/user/findbyactive', component: SearchUsersComponent },
-    { path: 'home/category/category', component: CategoryListComponent },
-    { path: 'home/category/add', component: CreateCategoryComponent },
-    { path: 'home/category/findbyname', component: SearchCategoriesComponent },
+    { path: 'home', component: HomeComponent, canActivate: [LoginGuard]},
+    { path: 'home/user/user', component: UsersListComponent,  canActivate: [LoginGuard] },
+    { path: 'home/user/add', component: CreateUserComponent,  canActivate: [LoginGuard] },
+    { path: 'home/user/active_users', component: ActiveUsersComponent,  canActivate: [LoginGuard] },
+    { path: 'home/user/findbyactive', component: SearchUsersComponent,  canActivate: [LoginGuard] },
+    { path: 'home/category/category', component: CategoryListComponent,  canActivate: [LoginGuard] },
+    { path: 'home/category/add', component: CreateCategoryComponent,  canActivate: [LoginGuard] },
+    { path: 'home/category/findbyname', component: SearchCategoriesComponent,  canActivate: [LoginGuard] },
 ];
 
 @NgModule({

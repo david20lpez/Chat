@@ -46,8 +46,8 @@ public class UserController {
         System.out.println("Create user: " + user.getName() + "...");
         
         user.setId(UUIDs.timeBased());
-        User _user = userRepository.save(user);
-        return new ResponseEntity<>(_user, HttpStatus.OK);
+        User user1 = userRepository.save(user);
+        return new ResponseEntity<>(user1, HttpStatus.OK);
     }
     
     @PutMapping("/users/{id}")
@@ -56,11 +56,11 @@ public class UserController {
         
         Optional<User> userData = userRepository.findById(id);
         if(userData.isPresent()){
-            User _user = userData.get();
-            _user.setName(user.getName());
-            _user.setEmail(user.getEmail());
-            _user.setActive(user.isActive());
-            return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+            User user1 = userData.get();
+            user1.setName(user.getName());
+            user1.setEmail(user.getEmail());
+            user1.setActive(user.isActive());
+            return new ResponseEntity<>(userRepository.save(user1), HttpStatus.OK);
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

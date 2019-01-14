@@ -16,6 +16,7 @@ import { SearchCategoriesComponent } from './search-categories/search-categories
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
+import { LoginGuard } from './login.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ActiveUsersComponent } from './active-users/active-users.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

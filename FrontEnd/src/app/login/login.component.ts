@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,5 +37,4 @@ export class LoginComponent {
       alert('LogIn invalido');
     });
   }
-
 }

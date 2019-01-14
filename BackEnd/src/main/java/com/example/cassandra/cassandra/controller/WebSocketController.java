@@ -6,7 +6,6 @@
 package com.example.cassandra.cassandra.controller;
 
 import com.example.cassandra.cassandra.model.Hello;
-import com.example.cassandra.cassandra.model.User;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;

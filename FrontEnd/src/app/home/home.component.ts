@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {Router} from '@angular/router';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +13,11 @@ import {Router} from '@angular/router';
 
 export class HomeComponent{
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {this.user = new User();}
 
   title = 'Chat Application';
 
+  user: User;
   personName = localStorage.getItem("name");
   greetings: string[] = [];
   disabled = true;
@@ -69,6 +72,11 @@ export class HomeComponent{
   logOut(){
     localStorage.setItem("name", null);
     this.router.navigate([""]);
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user.active = false;
+    this.userService.createUser(this.user);
+    console.log(this.user);
+    this.userService.logOut(this.user).subscribe();
   }
 
 }
