@@ -15,6 +15,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { SearchCategoriesComponent } from './search-categories/search-categories.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { ActiveUsersComponent } from './active-users/active-users.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HomeComponent } from './home/home.component';
     CategoryListComponent,
     SearchCategoriesComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ActiveUsersComponent
   ],
   imports: [
     BrowserModule,

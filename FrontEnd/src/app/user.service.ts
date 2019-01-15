@@ -28,7 +28,7 @@ export class UserService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  public validLogIn(user: User): Observable<User> {
+  validLogIn(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/login`, user);
   }
 
@@ -48,7 +48,7 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/category/${category}`);
   }
 
-  getUsersByName(name: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/name/${name}`);
+  logOut(user: User): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/logout`, user);
   }
 }

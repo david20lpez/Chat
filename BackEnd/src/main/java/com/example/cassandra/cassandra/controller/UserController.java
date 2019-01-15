@@ -77,12 +77,13 @@ public class UserController {
     
     @GetMapping("users/active/{active}")
     public List<User> findByActive(@PathVariable boolean active){
+        System.out.println("Listing active users");
         List<User> users = userRepository.findByActive(active);
         return users;
     }
     
     @GetMapping("users/category/{category}")
-    public List<User> findByActive(@PathVariable String category){
+    public List<User> findByCategory(@PathVariable String category){
         List<User> categories = userRepository.findByCategory(category);
         return categories;
     }
@@ -91,8 +92,24 @@ public class UserController {
     public ResponseEntity logIn (@RequestBody User user){
         Optional<User> u = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (u.isPresent()) {
+            u.get().setActive(true);
+            userRepository.save(u.get());
             return new ResponseEntity<>(u.get(), HttpStatus.ACCEPTED);
         }
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
+    
+    @PostMapping("users/logout")
+    public ResponseEntity logOut (@RequestBody User user){
+        UUID id = user.getId();
+        Optional<User> user1 = userRepository.findById(id);
+        if(user1.isPresent()){
+            
+            user1.get().setActive(false);
+            userRepository.save(user1.get());
+            return new ResponseEntity<>(user1.get(), HttpStatus.ACCEPTED);
+        }
+        System.out.println("being used");
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
 }

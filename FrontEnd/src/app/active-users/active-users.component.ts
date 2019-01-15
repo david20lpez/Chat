@@ -2,37 +2,49 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import {Router} from '@angular/router';
 
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.css']
+  selector: 'app-active-users',
+  templateUrl: './active-users.component.html',
+  styleUrls: ['./active-users.component.css']
 })
-export class UsersListComponent implements OnInit {
+export class ActiveUsersComponent implements OnInit {
+
+  constructor(private userService: UserService, private router: Router) { 
+    this.user = new User();
+  }
 
   users: Observable<User[]>;
-  
+  user: User;
+  personName = localStorage.getItem("name");
 
-  constructor(private userService: UserService, private router: Router) {
-    this.user = new User();
-   }
+
+  reloadSite(){
+    this.reloadData();
+  }
 
   ngOnInit() {
     this.reloadData();
   }
 
   reloadData() {
-    this.users = this.userService.getUsersList();
+    this.users = this.userService.getUsersByActive(true); 
   }
 
-  title = 'Chat Application';
+  logOut(){
+    localStorage.setItem("name", null);
+    this.router.navigate([""]);
+    this.user = JSON.parse(localStorage.getItem("user"));
+    this.user.active = false;
+    this.userService.createUser(this.user);
+    console.log(this.user);
+    this.userService.logOut(this.user).subscribe();
+  }
 
-  user: User;
-  personName = localStorage.getItem("name");
   greetings: string[] = [];
   disabled = true;
   name: string;
@@ -82,16 +94,5 @@ export class UsersListComponent implements OnInit {
   showGreeting(message) {
     this.greetings.push(message);
   }
-
-  logOut(){
-    localStorage.setItem("name", null);
-    this.router.navigate([""]);
-    this.user = JSON.parse(localStorage.getItem("user"));
-    this.user.active = false;
-    this.userService.createUser(this.user);
-    console.log(this.user);
-    this.userService.logOut(this.user).subscribe();
-  }
-
 
 }
