@@ -43,18 +43,18 @@ public class CategoryController {
     @PostMapping("/categories/create")
     public ResponseEntity<Category> addCategory(@RequestBody Category category){
         category.setId(UUIDs.timeBased());
-        Category _category = categoryRepository.save(category);
-        return new ResponseEntity<>(_category, HttpStatus.OK);
+        Category category1 = categoryRepository.save(category);
+        return new ResponseEntity<>(category1, HttpStatus.OK);
     }
     
     @PutMapping("/categories/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") UUID id, @RequestBody Category category){
         Optional<Category> categoryData = categoryRepository.findById(id);
         if(categoryData.isPresent()){
-            Category _category = categoryData.get();
-            _category.setName(category.getName());
+            Category category1 = categoryData.get();
+            category1.setName(category.getName());
             
-            return new ResponseEntity<>(categoryRepository.save(_category), HttpStatus.OK); 
+            return new ResponseEntity<>(categoryRepository.save(category1), HttpStatus.OK); 
         }
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
