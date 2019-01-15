@@ -28,7 +28,7 @@ public class User {
     public User() {
     }
 
-    public User(UUID id, String name, String email, boolean active, String category, String password) {
+    public User(UUID id, String name, String email, boolean active, String category, String password, String role) {
         this.id = id;
         this.name = name;
         this.active = active;
@@ -93,13 +93,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-    
-    
-    
-    
-    @Override
-    public String toString(){
-        return "User = [id " + id + ", name " + name + ", active" + active + " ]";
-    }
-    
 }

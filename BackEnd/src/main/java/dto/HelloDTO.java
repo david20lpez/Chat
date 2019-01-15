@@ -10,5 +10,20 @@ package dto;
  * @author LENOVO
  */
 public class HelloDTO {
-    
+    private String content;
+
+    public HelloDTO() {
+    }
+
+    public HelloDTO(String content) {
+        this.content = content;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
