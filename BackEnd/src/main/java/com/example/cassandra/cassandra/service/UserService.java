@@ -5,7 +5,7 @@
  */
 package com.example.cassandra.cassandra.service;
 
-import com.example.cassandra.cassandra.model.User;
+import dto.UserDTO;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,12 +14,12 @@ import java.util.UUID;
  * @author LENOVO
  */
 public interface UserService {
-    List<User> getAllUsers();
-    User postuser(User user);
-    User updateUser(UUID id, User user);
+    List<UserDTO> getAllUsers();
+    UserDTO postUser(UserDTO userDTO);
+    UserDTO updateUser(UUID id, UserDTO userDTO);
     void deleteUser(UUID id);
-    List<User> findByActive (boolean active);
-    List<User> findByCategory(String category);
-    User logIn(User user);
-    User logOut(User user);
+    List<UserDTO> findByActive (boolean active);
+    List<UserDTO> findByCategory(String category);
+    UserDTO logIn(UserDTO userDTO);
+    UserDTO logOut(UserDTO userDTO);
 }

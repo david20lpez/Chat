@@ -5,11 +5,9 @@
  */
 package com.example.cassandra.cassandra.controller;
 
-import com.datastax.driver.core.utils.UUIDs;
-import com.example.cassandra.cassandra.model.User;
-import com.example.cassandra.cassandra.repository.UserRepository;
+import com.example.cassandra.cassandra.service.implementation.UserManagementService;
+import dto.UserDTO;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,83 +31,58 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class UserController {
     @Autowired
-    UserRepository userRepository;
+    private UserManagementService userService;
     
     @GetMapping("/users")
-    public List<User> getAllUsers(){
+    public List<UserDTO> getAllUsers(){
         System.out.println("This is a change");
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
     
     @PostMapping("users/create")
-    public ResponseEntity<User> postUser(@RequestBody User user){
-        System.out.println("Create user: " + user.getName() + "...");
-        
-        user.setId(UUIDs.timeBased());
-        User user1 = userRepository.save(user);
+    public ResponseEntity<UserDTO> postUser(@RequestBody UserDTO userDTO){
+        System.out.println("Create user: " + userDTO.getName() + "...");
+        UserDTO user1 = userService.postUser(userDTO);
         return new ResponseEntity<>(user1, HttpStatus.OK);
     }
     
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable("id") UUID id, @RequestBody User user){
+    public ResponseEntity<UserDTO> updateUser(@PathVariable("id") UUID id, @RequestBody UserDTO userDTO){
         System.out.println("Update User with ID = " + id + "...");
-        
-        Optional<User> userData = userRepository.findById(id);
-        if(userData.isPresent()){
-            User user1 = userData.get();
-            user1.setName(user.getName());
-            user1.setEmail(user.getEmail());
-            user1.setActive(user.isActive());
-            return new ResponseEntity<>(userRepository.save(user1), HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        UserDTO user1 = userService.updateUser(id, userDTO);
+        return new ResponseEntity<>(user1, HttpStatus.OK);
     }
     
     @DeleteMapping("users/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") UUID id){
         System.out.println("Delete user with ID: " + id + "..." );
-        
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
         return new ResponseEntity<>("User has been deleted", HttpStatus.OK);
     }
     
     @GetMapping("users/active/{active}")
-    public List<User> findByActive(@PathVariable boolean active){
+    public List<UserDTO> findByActive(@PathVariable boolean active){
         System.out.println("Listing active users");
-        List<User> users = userRepository.findByActive(active);
-        return users;
+        return userService.findByActive(active);
     }
     
     @GetMapping("users/category/{category}")
-    public List<User> findByCategory(@PathVariable String category){
-        List<User> categories = userRepository.findByCategory(category);
-        return categories;
+    public List<UserDTO> findByCategory(@PathVariable String category){
+        return userService.findByCategory(category);
     }
    
     @PostMapping("users/login")
-    public ResponseEntity logIn (@RequestBody User user){
-        Optional<User> u = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-        if (u.isPresent()) {
-            u.get().setActive(true);
-            userRepository.save(u.get());
-            return new ResponseEntity<>(u.get(), HttpStatus.ACCEPTED);
+    public ResponseEntity logIn (@RequestBody UserDTO userDTO){
+        UserDTO user1 = userService.logIn(userDTO);
+        if(user1 != null){
+            return new ResponseEntity<>(user1, HttpStatus.ACCEPTED);
         }
-        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(user1, HttpStatus.UNAUTHORIZED);
     }
     
     @PostMapping("users/logout")
-    public ResponseEntity logOut (@RequestBody User user){
-        UUID id = user.getId();
-        Optional<User> user1 = userRepository.findById(id);
-        if(user1.isPresent()){
-            
-            user1.get().setActive(false);
-            userRepository.save(user1.get());
-            return new ResponseEntity<>(user1.get(), HttpStatus.ACCEPTED);
-        }
-        System.out.println("being used");
-        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    public ResponseEntity logOut (@RequestBody UserDTO userDTO){
+        UserDTO user1 = userService.logOut(userDTO);
+        return new ResponseEntity<>(user1, HttpStatus.ACCEPTED);
     }
 }

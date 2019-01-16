@@ -5,11 +5,9 @@
  */
 package com.example.cassandra.cassandra.controller;
 
-import com.datastax.driver.core.utils.UUIDs;
-import com.example.cassandra.cassandra.model.Category;
-import com.example.cassandra.cassandra.repository.CategoryRepository;
+import com.example.cassandra.cassandra.service.implementation.CategoryManagementService;
+import dto.CategoryDTO;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,37 +31,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class CategoryController {
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryManagementService categoryService;
+    
     
     @GetMapping("/categories")
-    public List<Category> getAllCats(){
-        return categoryRepository.findAll();
+    public List<CategoryDTO> getAllCats(){
+        return categoryService.getAll();
     }
     
     @PostMapping("/categories/create")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category){
-        category.setId(UUIDs.timeBased());
-        Category category1 = categoryRepository.save(category);
+    public ResponseEntity<CategoryDTO> addCategory(@RequestBody CategoryDTO category){
+          CategoryDTO category1 = categoryService.addCategory(category);
         return new ResponseEntity<>(category1, HttpStatus.OK);
     }
     
     @PutMapping("/categories/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable("id") UUID id, @RequestBody Category category){
-        Optional<Category> categoryData = categoryRepository.findById(id);
-        if(categoryData.isPresent()){
-            Category category1 = categoryData.get();
-            category1.setName(category.getName());
-            
-            return new ResponseEntity<>(categoryRepository.save(category1), HttpStatus.OK); 
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable("id") UUID id, @RequestBody CategoryDTO categoryDTO){
+          CategoryDTO category = categoryService.updateCategory(id, categoryDTO);
+          return new ResponseEntity<>(category, HttpStatus.OK);
     }
     
     @DeleteMapping("categories/{id}")
-    public ResponseEntity<Category> deleteCategory(@PathVariable UUID id){
-        categoryRepository.deleteById(id);
+    public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable UUID id){
+        categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     

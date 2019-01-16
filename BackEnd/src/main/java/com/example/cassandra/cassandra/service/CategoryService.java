@@ -5,10 +5,17 @@
  */
 package com.example.cassandra.cassandra.service;
 
+import dto.CategoryDTO;
+import java.util.List;
+import java.util.UUID;
+
 /**
  *
  * @author LENOVO
  */
 public interface CategoryService {
-    
+    List<CategoryDTO> getAll();
+    CategoryDTO addCategory(CategoryDTO category);
+    CategoryDTO updateCategory(UUID id, CategoryDTO categoryDTO);
+    void deleteCategory(UUID id);
 }

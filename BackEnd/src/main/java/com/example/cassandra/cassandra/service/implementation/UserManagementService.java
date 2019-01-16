@@ -9,9 +9,12 @@ import com.datastax.driver.core.utils.UUIDs;
 import com.example.cassandra.cassandra.model.User;
 import com.example.cassandra.cassandra.repository.UserRepository;
 import com.example.cassandra.cassandra.service.UserService;
+import dto.UserDTO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,30 +26,41 @@ import org.springframework.stereotype.Service;
 public class UserManagementService implements UserService{
     @Autowired
     UserRepository userRepository;
+    @Autowired 
+    ModelMapper modMapper;
     
     @Override
-    public List<User> getAllUsers(){
-        return userRepository.findAll();
-    }
-    
-    @Override
-    public User postuser(User user){
-        user.setId(UUIDs.timeBased());
-        User user1 = userRepository.save(user);
-        return user1;
-    }
-    
-    @Override
-    public User updateUser(UUID id, User user){
-        Optional<User> userData = userRepository.findById(id);
-        if(userData.isPresent()){
-            User user1 = userData.get();
-            user1.setName(user.getName());
-            user1.setEmail(user.getEmail());
-            user1.setActive(user.isActive());
-            return user1;
+    public List<UserDTO> getAllUsers(){
+        List<User> users = userRepository.findAll();
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for(User user : users){
+            usersDTO.add(modMapper.map(user, UserDTO.class));
         }
-        return user;
+        return usersDTO;
+    }
+    
+    @Override
+    public UserDTO postUser(UserDTO userDTO){
+        userDTO.setId(UUIDs.timeBased());
+        User user = userRepository.save(modMapper.map(userDTO, User.class));
+        return modMapper.map(user, UserDTO.class);
+    }
+    
+    @Override
+    public UserDTO updateUser(UUID id, UserDTO userDTO){
+        Optional<User> userData = userRepository.findById(id);
+        User user = new User();
+        if(userData.isPresent()){
+            UserDTO userDTO1 = modMapper.map(userData.get(), UserDTO.class);
+            userDTO1.setId(userDTO.getId());
+            userDTO1.setName(userDTO.getName());
+            userDTO1.setCategory(userDTO.getCategory());
+            userDTO1.setActive(userDTO.isActive());
+            userDTO1.setRole(userDTO.getPassword());
+            userDTO1.setEmail(userDTO.getEmail());
+            user = userRepository.save(modMapper.map(userDTO1, User.class));
+        }
+        return modMapper.map(user, UserDTO.class);
     }
     
     @Override
@@ -55,34 +69,48 @@ public class UserManagementService implements UserService{
     }
     
     @Override
-    public List<User> findByActive(boolean active){
-        return userRepository.findByActive(active);
+    public List<UserDTO> findByActive(boolean active){
+        List<User> users = userRepository.findByActive(active);
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for(User user : users){
+            usersDTO.add(modMapper.map(user, UserDTO.class));
+        }
+        return usersDTO;
     }
     
     @Override
-    public List<User> findByCategory(String category){
-        return userRepository.findByCategory(category);
+    public List<UserDTO> findByCategory(String category){
+        List<User> users = userRepository.findByCategory(category);
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for(User user : users){
+            usersDTO.add(modMapper.map(user, UserDTO.class));
+        }
+        return usersDTO;
     }
     
     @Override 
-    public User logIn(User user){
-        Optional<User> user1 = userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword());
-        if (user1.isPresent()) {
-            user1.get().setActive(true);
-            userRepository.save(user1.get());
-            return user1.get();
+    public UserDTO logIn(UserDTO userDTO){
+        Optional<User> user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());
+        User user1 = new User();
+        if (user.isPresent()) {
+            userDTO = modMapper.map(user.get(), UserDTO.class);
+            userDTO.setActive(true);
+            user1 = userRepository.save(modMapper.map(userDTO, User.class));
+            return modMapper.map(user1, UserDTO.class);
         }
         return null;
     }
     
     @Override
-    public User logOut(User user){
-        UUID id = user.getId();
-        Optional<User> user1 = userRepository.findById(id);
-        if(user1.isPresent()){
-            user1.get().setActive(false);
-            userRepository.save(user1.get());
-            return user1.get();
+    public UserDTO logOut(UserDTO userDTO){
+        UUID id = userDTO.getId();
+        Optional<User> user = userRepository.findById(id);
+        User user1 = new User();
+        if(user.isPresent()){
+            userDTO = modMapper.map(user.get(), UserDTO.class);
+            userDTO.setActive(false);
+            user1 = userRepository.save(modMapper.map(userDTO, User.class));
+            return modMapper.map(user1, UserDTO.class);  
         }
         return null;
     }
