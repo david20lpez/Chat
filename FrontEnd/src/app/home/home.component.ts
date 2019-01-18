@@ -13,7 +13,13 @@ import { UserService } from '../user.service';
 
 export class HomeComponent{
   
-  constructor(private router: Router, private userService: UserService) {this.user = new User();}
+  constructor(private router: Router, private userService: UserService) {
+    this.user = new User();
+  }
+
+  ngOnInit() {
+    this.connect();
+  }
 
   title = 'Chat Application';
 
@@ -22,12 +28,12 @@ export class HomeComponent{
   greetings: string[] = [];
   disabled = true;
   name: string;
-  private stompClient = null;
+  private stompClient;
+  socket = new SockJS('http://localhost:8080/chat-endpoint');
  
  
   setConnected(connected: boolean) {
     this.disabled = !connected;
- 
     if (connected) {
       this.greetings = [];
     }
@@ -41,6 +47,7 @@ export class HomeComponent{
     this.stompClient.connect({}, function (frame) {
       _this.setConnected(true);
       console.log('Connected: ' + frame);
+      
  
       _this.stompClient.subscribe('/topic/hi', function (hello) {
         _this.showGreeting(JSON.parse(hello.body).content);
@@ -63,6 +70,7 @@ export class HomeComponent{
       {},
       localStorage.getItem("name") + ': ' + this.name
     );
+    this.name = "";
   }
  
   showGreeting(message) {
@@ -73,8 +81,7 @@ export class HomeComponent{
     localStorage.setItem("name", null);
     this.router.navigate([""]);
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.user.active = false;
-    this.userService.createUser(this.user);
+    this.disconnect();
     console.log(this.user);
     this.userService.logOut(this.user).subscribe();
   }

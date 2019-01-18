@@ -14,13 +14,6 @@
     
     <div class="container" >
    
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="connect">Options:</label>
-          <button id="connect" class="btn btn-default" type="button" [disabled]="!disabled" (click)="connect()">Chat</button>
-          <button id="disconnect" class="btn btn-default" type="submit" [disabled]="disabled" (click)="disconnect()">End Chat</button>
-        </div>
-      </form>
       <table id="conversation" class="table table-striped" style="margin-top: 20px;">
         <thead>
           <tr>

@@ -6,6 +6,8 @@
 package com.example.cassandra.cassandra.controller;
 
 import com.example.cassandra.cassandra.model.Hello;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -18,8 +20,10 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WebSocketController {
     @MessageMapping("/hello")
-	@SendTo("/topic/hi")
-	public Hello greeting1(String message) throws Exception {
-		return new Hello(message);
-	}
+    @SendTo("/topic/hi")
+    public Hello greeting(String message) throws Exception {
+        String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
+	return new Hello(currentTime + " - " + message);
+    }
+        
 }

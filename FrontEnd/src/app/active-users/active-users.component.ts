@@ -21,6 +21,7 @@ export class ActiveUsersComponent implements OnInit {
   users: Observable<User[]>;
   user: User;
   personName = localStorage.getItem("name");
+  chat = false;
 
 
   reloadSite(){
@@ -29,6 +30,7 @@ export class ActiveUsersComponent implements OnInit {
 
   ngOnInit() {
     this.reloadData();
+    this.connect();
   }
 
   reloadData() {
@@ -39,10 +41,12 @@ export class ActiveUsersComponent implements OnInit {
     localStorage.setItem("name", null);
     this.router.navigate([""]);
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.user.active = false;
-    this.userService.createUser(this.user);
     console.log(this.user);
     this.userService.logOut(this.user).subscribe();
+  }
+
+  open(){
+    this.chat = true;
   }
 
   greetings: string[] = [];

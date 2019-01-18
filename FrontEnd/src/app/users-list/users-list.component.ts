@@ -87,8 +87,6 @@ export class UsersListComponent implements OnInit {
     localStorage.setItem("name", null);
     this.router.navigate([""]);
     this.user = JSON.parse(localStorage.getItem("user"));
-    this.user.active = false;
-    this.userService.createUser(this.user);
     console.log(this.user);
     this.userService.logOut(this.user).subscribe();
   }

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
 
 
 @Component({
@@ -15,8 +17,9 @@ export class LoginComponent {
     this.user = new User();
   }
   user: User;
-  email : string
-  password : string
+  email : string;
+  password : string;
+  private stompClient = null;
 
   ngOnInit() {
   }

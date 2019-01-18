@@ -8,6 +8,7 @@
 
 <div *ngFor="let user of users | async" style="width: 300px;">
     {{user.name}}
+    <button type="button" (click)="open()">Chat</button>
   </div>
 
   
@@ -19,13 +20,6 @@
     
       <div class="column" >
      
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="connect">Options:</label>
-            <button id="connect" class="btn btn-default" type="button" [disabled]="!disabled" (click)="connect()">Chat</button>
-            <button id="disconnect" class="btn btn-default" type="submit" [disabled]="disabled" (click)="disconnect()">End Chat</button>
-          </div>
-        </form>
         <table id="conversation" class="table table-striped" style="margin-top: 20px;">
           <thead>
             <tr>
@@ -38,7 +32,7 @@
             </tr>
           </tbody>
         </table>
-        <form class="form-inline" style="margin-top: 20px;">
+        <form *ngIf="chat" class="form-inline" style="margin-top: 20px;">
           <div class="form-group">
             <label for="name">Message:</label>
             <input type="text" id="name" name="name" class="form-control" [(ngModel)]="name" />
