@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +62,16 @@ public class CategoryManagementService implements CategoryService{
     }
     
     @Override
-    public void deleteCategory(UUID id){
-        categoryRepository.deleteById(id);
+    public CategoryDTO selectCategory(UUID id){
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        return modMapper.map(categoryOptional.get(), CategoryDTO.class);
     }
+    
+    @Override
+    public CategoryDTO deleteCategory(UUID id){
+        CategoryDTO category = selectCategory(id);
+        categoryRepository.deleteById(id);
+        return category;
+    }
+    
 }

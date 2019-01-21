@@ -15,7 +15,8 @@ import java.util.UUID;
  */
 public interface CategoryService {
     List<CategoryDTO> getAll();
+    CategoryDTO selectCategory(UUID id);
     CategoryDTO addCategory(CategoryDTO category);
     CategoryDTO updateCategory(UUID id, CategoryDTO categoryDTO);
-    void deleteCategory(UUID id);
+    CategoryDTO deleteCategory(UUID id);
 }

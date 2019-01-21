@@ -17,7 +17,8 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     UserDTO postUser(UserDTO userDTO);
     UserDTO updateUser(UUID id, UserDTO userDTO);
-    void deleteUser(UUID id);
+    UserDTO selectUser(UUID id);
+    UserDTO deleteUser(UUID id);
     List<UserDTO> findByActive (boolean active);
     List<UserDTO> findByCategory(String category);
     UserDTO logIn(UserDTO userDTO);

@@ -5,13 +5,18 @@
  */
 package com.example.cassandra.cassandra.controller;
 
+import com.example.cassandra.cassandra.model.Hello;
 import com.example.cassandra.cassandra.service.implementation.UserManagementService;
 import dto.UserDTO;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +35,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class UserController {
-    @Autowired
+    
     private UserManagementService userService;
+    
+    UserController(UserManagementService userService){
+        this.userService = userService;
+    }
     
     @GetMapping("/users")
     public List<UserDTO> getAllUsers(){
@@ -85,4 +94,5 @@ public class UserController {
         UserDTO user1 = userService.logOut(userDTO);
         return new ResponseEntity<>(user1, HttpStatus.ACCEPTED);
     }
+    
 }

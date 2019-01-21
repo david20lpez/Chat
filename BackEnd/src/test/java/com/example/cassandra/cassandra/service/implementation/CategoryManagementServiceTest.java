@@ -17,6 +17,7 @@ import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,13 +84,36 @@ public class CategoryManagementServiceTest {
         assertEquals("Education",result.getName());
     }
     
+//    @Test
+//    public void updateCategoryTest(){
+//        UUID id = UUID.randomUUID();
+//        Category category = new Category(id,"BMX");
+//        Category category1 = new Category();
+//        category1.setName("Tourism");
+//        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+//        CategoryDTO result = categoryService.updateCategory(id, modMapper.map(category1, CategoryDTO.class));
+//        assertEquals("Tourism",result.getName());
+//    }
+    
     @Test
-    public void updateCategoryTest(){
-        Category category = new Category(UUID.randomUUID(),"BMX");
-        Category category1 = new Category();
-        category1.setName("Tourism");
-        when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
-        CategoryDTO result = categoryService.updateCategory(category.getId(), modMapper.map(category1, CategoryDTO.class));
-        assertEquals("Tourism",category.getName());
+    public void deleteCategory_Test(){
+        Category category = new Category();
+        UUID id = UUID.randomUUID();
+        category.setId(id);
+        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+        CategoryDTO result = categoryService.deleteCategory(id);
+        assertNotNull(result);
+        assertEquals(id, result.getId());
+    }
+    
+    @Test
+    public void selectCategory_Test(){
+        UUID id = UUID.randomUUID();
+        Category category = new Category();
+        category.setId(id);
+        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+        CategoryDTO result = categoryService.selectCategory(id);
+        assertNotNull(result);
+        assertEquals(id, result.getId());
     }
 }

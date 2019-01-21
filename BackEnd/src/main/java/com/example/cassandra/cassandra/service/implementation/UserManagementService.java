@@ -24,10 +24,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserManagementService implements UserService{
-    @Autowired
-    UserRepository userRepository;
-    @Autowired 
-    ModelMapper modMapper;
+   
+    private UserRepository userRepository;
+    private ModelMapper modMapper;
+    
+    public UserManagementService(UserRepository userRepository, ModelMapper modMapper){
+        this.userRepository = userRepository;
+        this.modMapper = modMapper;
+    }
     
     @Override
     public List<UserDTO> getAllUsers(){
@@ -64,8 +68,16 @@ public class UserManagementService implements UserService{
     }
     
     @Override
-    public void deleteUser(UUID id){
+    public UserDTO selectUser(UUID id){
+        Optional<User> userOptional = userRepository.findById(id);
+        return modMapper.map(userOptional.get(), UserDTO.class);
+    }
+    
+    @Override
+    public UserDTO deleteUser(UUID id){
+       UserDTO user = selectUser(id);
        userRepository.deleteById(id);
+       return user;
     }
     
     @Override
