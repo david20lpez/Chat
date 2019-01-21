@@ -1,0 +1,56 @@
+<style>
+
+    .centrar
+    {
+      position: absolute;
+      /*nos posicionamos en el centro del navegador*/
+      top:40%;
+      left:50%;
+      /*determinamos una anchura*/
+      width:620px;
+      /*indicamos que el margen izquierdo, es la mitad de la anchura*/
+      margin-left:-200px;
+      /*determinamos una altura*/
+      height:350px;
+      /*indicamos que el margen superior, es la mitad de la altura*/
+      margin-top:-150px;
+      /*border:1px solid #092a5c;*/
+      padding:5px;
+    }
+
+    .vertical-menu {
+      width: 200px;
+    }
+    
+    .vertical-menu a {
+      background-color: #eee;
+      color: black;
+      display: block;
+      padding: 12px;
+      text-decoration: none;
+    }
+    
+    .vertical-menu a:hover {
+      background-color: #ccc;
+    }
+    
+    .vertical-menu a.active {
+      background-color: #4CAF50;
+      color: white;
+    } 
+    </style>
+
+
+
+<body> 
+  <div class="centrar"> 
+    <div *ngIf="category">
+      <div>
+        <label>Name: </label> {{category.name}}
+        <br>
+      </div>
+        <span class="button is-small btn-danger" (click)='deleteCategory()'>Delete</span>
+        <hr/>
+      </div> 
+    </div>
+ </body>

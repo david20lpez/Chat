@@ -1,0 +1,11 @@
+
+
+#div1 {
+    overflow:scroll;
+    height:350px;
+    width:500px;
+}
+#div1 table {
+   width:500px;
+   background-color:rgb(194, 228, 195);
+}

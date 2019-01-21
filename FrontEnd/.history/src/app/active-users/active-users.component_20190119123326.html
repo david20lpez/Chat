@@ -1,0 +1,17 @@
+<h1>Available Users</h1>
+<br>
+<h2>hi, {{personName}}</h2>
+
+<div align="right"><button type="button" (click)="reloadSite()">Refresh</button></div>
+<div align="right"><button type="button" (click)="logOut()">LogOut</button></div>
+<div class="row"> 
+<div class="column">
+
+<div *ngFor="let user of users | async" style="width: 300px;">
+    {{user.name}}
+    <button type="button" (click)="open()">Chat</button>
+  </div>
+
+</div>
+
+  

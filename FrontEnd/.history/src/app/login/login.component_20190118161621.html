@@ -1,0 +1,24 @@
+
+<div align="center">
+  <h1 style="color: black">{{title}}</h1>
+</div>
+
+<div style="padding: 20px;">
+  <div align="center">
+  <form (ngSubmit)="login()">
+    <div class="form-group">
+        width: 50%;
+        border: black 3px solid;
+        margin-left: auto;
+        margin-right: auto;
+      <label for="name">Email</label>
+      <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+      <label for="name">Password</label>
+      <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+    </div>
+  
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+  </div>
+  </div>
+

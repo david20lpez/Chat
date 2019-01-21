@@ -1,0 +1,56 @@
+<h1>Available Users</h1>
+<br>
+<h2>hi, {{personName}}</h2>
+
+<div align="right"><button type="button" (click)="reloadSite()">Refresh</button></div>
+<div align="right"><button type="button" (click)="logOut()">LogOut</button></div>
+<div class="row"> 
+<div class="column">
+
+<div class="vertical-menu">
+        <a href="#" class="active">Home</a>
+        <a href="#"><a routerLink="user/user" class="btn btn-primary active" role="button" routerLinkActive="active">Users</a></a>
+        <a href="#"><a routerLink="user/add" class="btn btn-primary active" role="button" routerLinkActive="active">Add</a></a>
+        <a href="#"><a routerLink="user/findbyactive" class="btn btn-primary active" role="button" routerLinkActive="active">Search</a></a>
+        <a href="#"><a routerLink="category/category" class="btn btn-primary active" role="button" routerLinkActive="active">Categories</a></a>
+        <a href="#"><a routerLink="category/add" class="btn btn-primary active" role="button" routerLinkActive="active">Add Category</a></a>
+        <a href="#"><a routerLink="category/findbyname" class="btn btn-primary active" role="button" routerLinkActive="active">Search Category</a></a>
+      </div>  
+
+<div *ngFor="let user of users | async" style="width: 300px;">
+    {{user.name}}
+    <button type="button" (click)="open()">Chat</button>
+  </div>
+
+</div>
+
+  <body>
+    
+      <div class="column" >
+        
+     
+        <table id="conversation" class="table table-striped" style="margin-top: 20px;">
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let greeting of greetings">
+            <tr>
+              <td>{{greeting}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <form *ngIf="chat" class="form-inline" style="margin-top: 20px;">
+          <div class="form-group">
+            <label for="name">Message:</label>
+            <input type="text" id="name" name="name" class="form-control" [(ngModel)]="name" />
+          </div>
+          <button id="send" class="btn btn-default" type="button" (click)="sendName()">Send</button>
+        </form>
+     
+  
+     
+      </div>
+    </body>
+    </div>

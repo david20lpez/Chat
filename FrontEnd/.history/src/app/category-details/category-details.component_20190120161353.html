@@ -1,0 +1,45 @@
+<style>
+    .vertical-menu {
+      width: 200px;
+    }
+    
+    .vertical-menu a {
+      background-color: #eee;
+      color: black;
+      display: block;
+      padding: 12px;
+      text-decoration: none;
+    }
+    
+    .vertical-menu a:hover {
+      background-color: #ccc;
+    }
+    
+    .vertical-menu a.active {
+      background-color: #4CAF50;
+      color: white;
+    }
+    </style>
+
+<div class="vertical-menu">
+    <a href="#" class="active">Home</a>
+    <a href="#"><a routerLink="user/user" class="btn btn-primary active" role="button" routerLinkActive="active">Users</a></a>
+    <a href="#"><a routerLink="user/add" class="btn btn-primary active" role="button" routerLinkActive="active">Add</a></a>
+    <a href="#"><a routerLink="user/findbyactive" class="btn btn-primary active" role="button" routerLinkActive="active">Search</a></a>
+    <a href="#"><a routerLink="category/category" class="btn btn-primary active" role="button" routerLinkActive="active">Categories</a></a>
+    <a href="#"><a routerLink="category/add" class="btn btn-primary active" role="button" routerLinkActive="active">Add Category</a></a>
+    <a href="#"><a routerLink="category/findbyname" class="btn btn-primary active" role="button" routerLinkActive="active">Search Category</a></a>
+  </div> 
+
+<div class="centrar"> 
+
+  <div *ngIf="category">
+    <div>
+      <label>Name: </label> {{category.name}}
+    </div>
+
+    <span class="button is-small btn-danger" (click)='deleteCategory()'>Delete</span>
+
+    <hr/>
+  </div> 
+  </div>
