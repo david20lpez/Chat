@@ -24,10 +24,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CategoryManagementService implements CategoryService{
-    @Autowired
+    
     private CategoryRepository categoryRepository;
-    @Autowired
     private ModelMapper modMapper;
+    
+    CategoryManagementService(CategoryRepository categoryRepository, ModelMapper modMapper){
+        this.categoryRepository = categoryRepository;
+        this.modMapper = modMapper;
+    }
     
     @Override
     public List<CategoryDTO> getAll(){
