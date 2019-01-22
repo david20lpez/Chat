@@ -30,9 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
-    @Autowired
-    private CategoryManagementService categoryService;
+
+    CategoryManagementService categoryService;
     
+    CategoryController(CategoryManagementService categoryService){
+        this.categoryService = categoryService;
+    }
     
     @GetMapping("/categories")
     public List<CategoryDTO> getAllCats(){

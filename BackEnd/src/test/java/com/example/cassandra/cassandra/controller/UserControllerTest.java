@@ -85,8 +85,30 @@ public class UserControllerTest {
     public void deleteUser_Test(){
         UUID id = UUID.randomUUID();
         UserDTO user = new UserDTO();
+        user.setId(id);
         when(userService.deleteUser(id)).thenReturn(user);
         ResponseEntity <?> result = userController.deleteUser(id);
         assertEquals(HttpStatus.OK, result.getStatusCode());
     }
+    
+    @Test
+    public void getActiveUsers_Test(){
+        List<UserDTO> users = new ArrayList<>();
+        UserDTO user = new UserDTO(UUID.randomUUID(), "kev", "kt@gmail.com", true, "Swimming", "sjkandsa", "admin");
+        users.add(user);
+        when(userService.findByActive(true)).thenReturn(users);
+        List<UserDTO> result = userController.findByActive(true);
+        assertNotNull(result);
+    }
+    
+    @Test
+    public void getUsersByCategory_Test(){
+        List<UserDTO> users = new ArrayList<>();
+        UserDTO user = new UserDTO(UUID.randomUUID(), "kev", "kt@gmail.com", true, "Swimming", "sjkandsa", "admin");
+        users.add(user);
+        when(userService.findByCategory("Swimming")).thenReturn(users);
+        List<UserDTO> result = userController.findByCategory("Swimming");
+        assertNotNull(result);
+    }
+    
 }

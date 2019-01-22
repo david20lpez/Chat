@@ -63,10 +63,10 @@ public class UserController {
     }
     
     @DeleteMapping("users/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id") UUID id){
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") UUID id){
         System.out.println("Delete user with ID: " + id + "..." );
-        userService.deleteUser(id);
-        return new ResponseEntity<>("User has been deleted", HttpStatus.OK);
+        UserDTO user = userService.deleteUser(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
     
     @GetMapping("users/active/{active}")
