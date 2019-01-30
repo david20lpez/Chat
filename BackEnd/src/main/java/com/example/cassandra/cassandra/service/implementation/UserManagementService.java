@@ -100,6 +100,18 @@ public class UserManagementService implements UserService{
         return usersDTO;
     }
     
+    @Override
+    public List<UserDTO> findByCategoryAndActive(String category){
+        List<User> users = userRepository.findByCategory(category);
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for(User user : users){
+            if(user.isActive()){
+                usersDTO.add(modMapper.map(user, UserDTO.class));
+            }
+        }
+        return usersDTO;
+    }
+    
     @Override 
     public UserDTO logIn(UserDTO userDTO){
         Optional<User> user = userRepository.findByEmailAndPassword(userDTO.getEmail(), userDTO.getPassword());

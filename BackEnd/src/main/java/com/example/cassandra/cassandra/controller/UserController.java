@@ -5,16 +5,18 @@
  */
 package com.example.cassandra.cassandra.controller;
 
-import com.example.cassandra.cassandra.model.Hello;
+import com.example.cassandra.cassandra.model.Message;
+import com.example.cassandra.cassandra.service.implementation.ChatRoomManagementService;
 import com.example.cassandra.cassandra.service.implementation.UserManagementService;
 import dto.UserDTO;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     
     private UserManagementService userService;
+    private ChatRoomManagementService roomService;
     
     UserController(UserManagementService userService){
         this.userService = userService;
@@ -79,7 +82,13 @@ public class UserController {
     public List<UserDTO> findByCategory(@PathVariable String category){
         return userService.findByCategory(category);
     }
-   
+    
+    @GetMapping("users/category/active/{category}")
+    public List<UserDTO> findByCategoryAndActive(@PathVariable String category){
+        System.out.println("users by: " + category);
+        return userService.findByCategoryAndActive(category);
+    }
+    
     @PostMapping("users/login")
     public ResponseEntity logIn (@RequestBody UserDTO userDTO){
         UserDTO user1 = userService.logIn(userDTO);
@@ -93,6 +102,40 @@ public class UserController {
     public ResponseEntity logOut (@RequestBody UserDTO userDTO){
         UserDTO user1 = userService.logOut(userDTO);
         return new ResponseEntity<>(user1, HttpStatus.ACCEPTED);
+    }
+    
+    @MessageMapping("/users")
+    @SendTo("/topic/user")
+    public Message listActive(String response){
+        List<UserDTO> users = userService.findByActive(true);
+        String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
+        List<String> userList = new ArrayList<>();
+        for(UserDTO user1 : users ){
+            userList.add(user1.getName());
+        }
+        System.out.println(currentTime + "Messaging active users" + " " + userList.toString());
+        return new Message("Usuarios activos: " + currentTime + ": " + userList.toString());
+    }
+    
+    @MessageMapping("/categories")
+    @SendTo("/topic/category")
+    public Message listActiveByCategory(String response){
+        List<UserDTO> users = userService.findByCategoryAndActive(response);
+        String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
+        List<String> userList = new ArrayList<>();
+        for(UserDTO user1 : users ){
+            userList.add(user1.getName());
+        }
+        System.out.println(currentTime + "Messaging users by category" + " " + userList.toString());
+        return new Message("Usuarios activos: " + currentTime + ": " + userList.toString());
+    }
+    
+    @MessageMapping("/{category}")
+    @SendTo("/topic/{category}")
+    public Message categoryChat(@DestinationVariable String category, String message){
+        System.out.println("This is the message: " + message);
+        String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
+        return new Message(currentTime + " - " + message);
     }
     
 }

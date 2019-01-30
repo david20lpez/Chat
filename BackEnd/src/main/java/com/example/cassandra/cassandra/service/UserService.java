@@ -21,6 +21,7 @@ public interface UserService {
     UserDTO deleteUser(UUID id);
     List<UserDTO> findByActive (boolean active);
     List<UserDTO> findByCategory(String category);
+    List<UserDTO> findByCategoryAndActive(String category);
     UserDTO logIn(UserDTO userDTO);
     UserDTO logOut(UserDTO userDTO);
 }

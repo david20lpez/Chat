@@ -5,6 +5,7 @@
  */
 package com.example.cassandra.cassandra.controller;
 
+import com.example.cassandra.cassandra.service.implementation.ChatRoomManagementService;
 import com.example.cassandra.cassandra.service.implementation.UserManagementService;
 import dto.UserDTO;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 public class UserControllerTest {
     
     private UserManagementService userService;
+    private ChatRoomManagementService roomService;
     private UserController userController;
     
     public UserControllerTest() {
@@ -45,7 +47,8 @@ public class UserControllerTest {
     @Before
     public void setUp() {
         userService = Mockito.mock(UserManagementService.class);
-        userController = new UserController(userService);
+        roomService = Mockito.mock(ChatRoomManagementService.class);
+        userController = new UserController(userService, roomService);
     }
     
     @After

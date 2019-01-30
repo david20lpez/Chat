@@ -10,14 +10,14 @@ package com.example.cassandra.cassandra.model;
  * @author LENOVO
  */
 
-public class Hello {
+public class Message {
 
     private String content;
 
-    public Hello() {
+    public Message() {
     }
 
-    public Hello(String content) {
+    public Message(String content) {
         this.content = content;
     }
 

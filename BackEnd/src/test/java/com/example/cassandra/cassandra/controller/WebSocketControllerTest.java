@@ -5,7 +5,7 @@
  */
 package com.example.cassandra.cassandra.controller;
 
-import com.example.cassandra.cassandra.model.Hello;
+import com.example.cassandra.cassandra.model.Message;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.After;
@@ -50,7 +50,7 @@ public class WebSocketControllerTest {
     public void testGreeting() throws Exception {
         String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
         String message = "dnsknk";
-        Hello result = socketController.greeting(message);
+        Message result = socketController.greeting(message);
         assertEquals(currentTime + " - " + message, result.getContent());
     }
     
