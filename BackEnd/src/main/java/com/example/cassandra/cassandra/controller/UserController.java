@@ -138,4 +138,11 @@ public class UserController {
         return new Message(currentTime + " - " + message);
     }
     
+    @MessageMapping("/{id1}/{id2}")
+    @SendTo("/topic/{id1}/{id2}")
+    public Message privateChat(@DestinationVariable UUID id1, @DestinationVariable UUID id2, String message){
+        System.out.println("sending message: "+ message);
+        String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
+        return new Message(currentTime + " - " + message);
+    }
 }
