@@ -5,8 +5,8 @@
  */
 package com.example.cassandra.cassandra.controller;
 
+import com.datastax.driver.core.utils.UUIDs;
 import com.example.cassandra.cassandra.model.Message;
-import com.example.cassandra.cassandra.service.implementation.ChatRoomManagementService;
 import com.example.cassandra.cassandra.service.implementation.UserManagementService;
 import dto.UserDTO;
 import java.text.SimpleDateFormat;
@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     
     private UserManagementService userService;
-    private ChatRoomManagementService roomService;
     
     UserController(UserManagementService userService){
         this.userService = userService;
@@ -138,11 +137,43 @@ public class UserController {
         return new Message(currentTime + " - " + message);
     }
     
-    @MessageMapping("/{id1}/{id2}")
-    @SendTo("/topic/{id1}/{id2}")
-    public Message privateChat(@DestinationVariable UUID id1, @DestinationVariable UUID id2, String message){
+    @MessageMapping("/{chatid}")
+    @SendTo("/topic/{chatid}")
+    public Message privateCategoryChat(@DestinationVariable String chatid, String message){
         System.out.println("sending message: "+ message);
         String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
         return new Message(currentTime + " - " + message);
     }
+    
+    @MessageMapping("/ids")
+    @SendTo("/topic/user")
+    public String generateId(){
+        UUID generator = UUIDs.timeBased();
+        System.out.println(generator);
+        return "the id auto generated was: " + generator.toString();
+    }
+    
+    @MessageMapping("get/id")
+    @SendTo("/topic/id")
+    public String getId(String response){
+        System.out.println("the chat user id is: " + response);
+        return response;
+    }
+    
+    @MessageMapping("get/local")
+    @SendTo("/topic/local")
+    public String getLocalId(String response){
+        System.out.println("the local user id is: " + response);
+        return response;
+    }
+    
+    @MessageMapping("/private/{chatid}")
+    @SendTo("/topic/private/{chatid}")
+    public Message privateChat(@DestinationVariable String chatid, String message){
+        System.out.println("sending message: "+ message);
+        String currentTime = new SimpleDateFormat("HH:mm:ss ").format(new Date());
+        return new Message(currentTime + " - " + message);
+    }
+    
+
 }
