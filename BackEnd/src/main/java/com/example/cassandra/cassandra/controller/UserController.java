@@ -146,11 +146,11 @@ public class UserController {
     }
     
     @MessageMapping("/ids")
-    @SendTo("/topic/user")
+    @SendTo("/topic/random")
     public String generateId(){
         UUID generator = UUIDs.timeBased();
-        System.out.println(generator);
-        return "the id auto generated was: " + generator.toString();
+        System.out.println("the aid auto generated was: " + generator);
+        return generator.toString();
     }
     
     @MessageMapping("get/id")
