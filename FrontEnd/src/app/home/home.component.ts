@@ -29,7 +29,7 @@ export class HomeComponent{
   disabled = true;
   name: string;
   private stompClient;
-  socket = new SockJS('http://localhost:8080/chat-endpoint');
+  //socket = new SockJS('http://localhost:8080/chat-endpoint');
  
  
   setConnected(connected: boolean) {

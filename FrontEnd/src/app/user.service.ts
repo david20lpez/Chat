@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +49,15 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/category/${category}`);
   }
 
+  getUsersByCategoryAndActive(category: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/category/active/${category}`);
+  }
+
   logOut(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/logout`, user);
+  }
+
+  generateId(): Observable<Object> {
+    return this.http.get(`${this.baseUrl}/generate`);
   }
 }

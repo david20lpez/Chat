@@ -1,47 +1,48 @@
 <h1>Available Users</h1>
 <br>
 <h2>hi, {{personName}}</h2>
-<div align="right"><button type="button" (click)="reloadSite()">Refresh</button></div>
 <div align="right"><button type="button" (click)="logOut()">LogOut</button></div>
 <div class="row"> 
 <div class="column">
 
 <div *ngFor="let user of users | async" style="width: 300px;">
-    {{user.name}}
-    <button type="button" (click)="open()">Chat</button>
+  <chat-list [user]='user'></chat-list>
   </div>
+</div>
 
-  
-
+<div class="column">
+  <button type="button" (click)="openRoom()">{{user.category}}</button>
 </div>
 
 
-  <body>
-    
-      <div class="column" >
-     
-        <table id="conversation" class="table table-striped" style="margin-top: 20px;">
-          <thead>
-            <tr>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let greeting of greetings">
-            <tr>
-              <td>{{greeting}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <form *ngIf="chat" class="form-inline" style="margin-top: 20px;">
-          <div class="form-group">
-            <label for="name">Message:</label>
-            <input type="text" id="name" name="name" class="form-control" [(ngModel)]="name" />
-          </div>
-          <button id="send" class="btn btn-default" type="button" (click)="sendName()">Send</button>
-        </form>
-     
+<div class="column">
+    <body>
+        <div class="container" >
+       
+          <table id="conversation" class="table table-striped" style="margin-top: 20px;">
+            <thead>
+              <tr>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let greeting of greetings">
+              <tr>
+                <td>{{greeting}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <form class="form-inline" style="margin-top: 20px;">
+            <div class="form-group">
+              <label for="name">Message:</label>
+              <input type="text" id="name" name="name" class="form-control" [(ngModel)]="message" />
+            </div>
+            <button id="send" class="btn btn-default" type="button" (click)="sendMessage()">Send</button>
+          </form>
+        </div>
+        <button type="button" (click)="disconnectChat()">End Chat</button>
+      </body>
+</div>
+</div>
   
-     
-      </div>
-    </body>
-    </div>
+
+

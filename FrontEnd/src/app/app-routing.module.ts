@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
 import { LoginGuard } from './login.guard';
+import { ChatRoomComponent } from './chat-room/chat-room.component';
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'home/user/add', component: CreateUserComponent,  canActivate: [LoginGuard] },
     { path: 'home/user/active_users', component: ActiveUsersComponent,  canActivate: [LoginGuard] },
     { path: 'home/user/findbyactive', component: SearchUsersComponent,  canActivate: [LoginGuard] },
+    { path: 'home/user/chat', component: ChatRoomComponent, canActivate : [LoginGuard] },
     { path: 'home/category/category', component: CategoryListComponent,  canActivate: [LoginGuard] },
     { path: 'home/category/add', component: CreateCategoryComponent,  canActivate: [LoginGuard] },
     { path: 'home/category/findbyname', component: SearchCategoriesComponent,  canActivate: [LoginGuard] },

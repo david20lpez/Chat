@@ -18,15 +18,8 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateActive(isActive: boolean) {
-    this.userService.updateUser(this.user.id,
-      { name: this.user.name, email: this.user.email, active: isActive, password: this.user.password })
-      .subscribe(
-        data => {
-          console.log(data);
-          this.user = data as User;
-        },
-        error => console.log(error));
+  showId() {
+    console.log(this.user.id);
   }
 
   deleteUser() {

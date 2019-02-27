@@ -17,6 +17,9 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
 import { LoginGuard } from './login.guard';
+import { ChatRoomComponent } from './chat-room/chat-room.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { LoginGuard } from './login.guard';
     SearchCategoriesComponent,
     LoginComponent,
     HomeComponent,
-    ActiveUsersComponent
+    ActiveUsersComponent,
+    ChatRoomComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,7 @@ import { LoginGuard } from './login.guard';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [LoginGuard],
+  providers: [LoginGuard, AuthService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }
