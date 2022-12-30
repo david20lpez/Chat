@@ -28,11 +28,11 @@
     "sockjs-client": "^1.3.0",
     "stompjs": "^2.3.3",
     "tslib": "^1.9.0",
-    "webpack": "^4.28.4",
+    "webpack": "^5.75.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.11.0",
+    "@angular-devkit/build-angular": "~15.0.4",
     "@angular/cli": "~7.1.1",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
